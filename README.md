@@ -28,11 +28,28 @@ The editor is deliberately constrained: only whitelisted blocks, preset
 colors and type sizes only, locked default templates where sections demand
 it. Editors compose and write; the design system holds.
 
-## Quick start
+## Quick start (local dev, Docker)
 
-1. Install the plugin, activate the starter theme (the plugin no-ops without
-   a `theme-blocks/stanza.json` in the active theme).
-2. Rename the theme per project and fill `theme.json` + `stanza.json`.
+```bash
+docker compose up -d
+docker compose run --rm cli /setup.sh
+# -> http://localhost:8081 (admin / admin)
+```
+
+WordPress + MariaDB, with the plugin and theme bind-mounted — code edits show
+on refresh. The setup script installs core, activates both, and creates a
+front page. Re-run it any time; it's idempotent.
+
+## Deploy
+
+Coolify-ready: `deploy/Dockerfile` bakes plugin + theme into the official
+WordPress image (immutable deploys, only `uploads/` on a volume). See
+[deploy/README.md](deploy/README.md).
+
+## Working on the framework
+
+1. The plugin no-ops without a `theme-blocks/stanza.json` in the active theme.
+2. Rename the starter theme per project and fill `theme.json` + `stanza.json`.
 3. Develop blocks with `npm start`, ship with
    `npm run build && npm run build:editor`.
 4. When breakpoints change: `wp stanza sync-scss`, then rebuild sass.

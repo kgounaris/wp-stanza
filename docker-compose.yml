@@ -1,0 +1,71 @@
+# ============================================================
+# Local WordPress dev for Stanza.
+#   docker compose up -d && docker compose run --rm cli /setup.sh
+#   -> http://localhost:8081  (admin / admin by default)
+# Plugin and theme are bind-mounted: edits show on refresh.
+# Coolify does NOT use this file — it builds deploy/Dockerfile.
+# ============================================================
+services:
+  db:
+    # mysql:8 to match the shared server on the staging/production Coolify.
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - wp_core:/var/www/html
+      - ./stanza:/var/www/html/wp-content/plugins/stanza
+      - ./stanza-starter:/var/www/html/wp-content/themes/stanza-starter
+    restart: unless-stopped
+
+  # WP-CLI sidecar — same mounts, same DB. Used for setup and maintenance.
+  cli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      db:
+        condition: service_healthy
+    user: "33:33" # www-data, so generated files stay editable by the wordpress container
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WP_URL: http://localhost:8081
+      WP_TITLE: Stanza Dev
+      WP_ADMIN_USER: admin
+      WP_ADMIN_PASSWORD: admin
+      WP_ADMIN_EMAIL: dev@example.com
+    volumes:
+      - wp_core:/var/www/html
+      - ./stanza:/var/www/html/wp-content/plugins/stanza
+      - ./stanza-starter:/var/www/html/wp-content/themes/stanza-starter
+      - ./docker/setup.sh:/setup.sh:ro
+    profiles: ["cli"]
+
+volumes:
+  db_data:
+  wp_core:
