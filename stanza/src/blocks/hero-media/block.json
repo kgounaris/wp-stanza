@@ -1,0 +1,35 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/hero-media",
+  "title": "Hero media",
+  "category": "media",
+  "description": "Insert an image or a video to make a visual statement & use expressive text to capture attention and set the tone.",
+  "icon": "welcome-view-site",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "heroMediaOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ]
+}

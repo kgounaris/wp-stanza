@@ -1,0 +1,40 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/group",
+  "title": "Group",
+  "category": "design",
+  "description": "Gather blocks in a layout container.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "allowedBlocks": {
+      "type": "array"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "tagName": {
+      "type": "string"
+    },
+    "groupOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "useInnerBlockWrapper": {
+      "type": "boolean"
+    }    
+  },
+  "supports": {
+    "align": true,    
+    "anchor": true,
+    "__experimentalHasCustomAppender": true
+  },  
+  "editorScript": "file:./index.js"
+}

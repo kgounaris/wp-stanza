@@ -1,0 +1,85 @@
+{
+  "settings": {
+    "theme": "stanza-starter",
+    "breakpoints": {
+      "md": "768px",
+      "lg": "992px",
+      "xxl": "1400px"
+    },
+    "plugins": {
+      "featured-video": false,
+      "wp-forms": false
+    },
+    "google-maps-api-key": "",
+    "blocks": {
+      "stanza/free-text": true,
+      "stanza/paragraph": true,
+      "stanza/header": true,
+      "stanza/media": true,
+      "stanza/hero-text": true,
+      "stanza/media-text": true,
+      "stanza/summary-text": true,
+      "stanza/hero-media": true,
+      "stanza/slider": false,
+      "stanza/archive": false,
+      "stanza/teaser": true,
+      "stanza/gallery": false,
+      "stanza/composer-example-section": true
+    }
+  },
+  "supports": {
+    "align": false,
+    "layout": false
+  },
+  "blocks": {
+    "stanza/hero-text": {
+      "attributes": {
+        "backgroundColor": {
+          "default": "primary",
+          "options": ["base", "primary", "secondary", "accent"]
+        }
+      }
+    },
+    "stanza/media": {
+      "attributes": {
+        "mediaAspectRatio": {
+          "default": "16/9",
+          "options": [
+            { "label": "16:9", "value": "16/9" },
+            { "label": "2:3", "value": "2/3" }
+          ]
+        },
+        "mediaImageSize": {
+          "default": "full",
+          "options": ["full", "large", "medium_large", "medium"]
+        }
+      }
+    },
+    "stanza/composer": {
+      "registerBlocks": [
+        {
+          "name": "example-section",
+          "title": "Example section",
+          "description": "Replace with the project's first real section: heading, text, media.",
+          "icon": "layout",
+          "category": "theme"
+        }
+      ]
+    },
+    "stanza/composer-example-section": {
+      "attributes": {
+        "template": {
+          "default": [
+            ["stanza/header", { "level": 2 }],
+            ["core/paragraph"],
+            ["stanza/media"]
+          ]
+        }
+      },
+      "supports": {
+        "align": false,
+        "layout": false
+      }
+    }
+  }
+}

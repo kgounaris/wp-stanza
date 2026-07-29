@@ -1,0 +1,30 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/archive-filters",
+  "title": "Filters",
+  "category": "widgets",
+  "icon": "image-filter",
+  "attributes" : {
+    "title": {
+      "type": "string"
+    },
+    "taxonomies": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Catgories",
+          "taxonomy": "category",
+          "displayAsDropdown": false,
+          "showHierarchy": false,
+          "showPostCounts": false,
+          "showOnlyTopLevel": false,
+          "showEmpty": false
+        }
+      ]
+    }
+  },
+  "supports": {
+    "inserter": true
+  },  
+  "editorScript": "file:./index.js"
+}

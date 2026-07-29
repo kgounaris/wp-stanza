@@ -1,0 +1,50 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/media-text",
+  "title": "Media & text",
+  "category": "design",
+  "description": "Set media and words side-by-side for a richer layout.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "blockPropsOverwrite": {
+      "type": "object",
+      "default": {}
+    },
+    "mediaPosition": {
+      "type": "string",
+      "default": "bottom"
+    }, 
+    "mediaAlign": {
+      "type": "string",
+      "default": ""
+    },
+    "mediaTextOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "useInnerBlockWrapper": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "style": [ "file:./style-index.css", "stanza-media-text-style" ]
+}

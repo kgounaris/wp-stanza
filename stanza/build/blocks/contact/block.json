@@ -1,0 +1,39 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/contact",
+  "title": "Contact & Location",
+  "icon": "email",
+  "category": "design",
+  "description": "Display a contact form alongside an interactive map, allowing visitors to easily get in touch and find your location.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "globalPadding": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": {
+        "type": "default",
+        "justifyContent": "center"
+      }
+    }
+  },
+  "editorScript": [
+    "stanza-config",
+    "google-maps-api",
+    "file:./index.js"
+  ],
+  "style": [
+    "file:./style-index.css",
+    "stanza-contact-style-index"
+  ]
+}

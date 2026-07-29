@@ -1,0 +1,5 @@
+{
+  "name": "Stanza Blocks Manager",
+  "description": "A PHP-based WordPress admin page for managing custom Gutenberg blocks, scanning block.json files, and syncing configurations to the theme.",
+  "requestFramePermissions": []
+}

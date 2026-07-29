@@ -1,0 +1,36 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/composer",
+  "title": "Block composer",
+  "icon": "grid-view",
+  "category": "design",
+  "description": "Combine multiple blocks to create rich, custom layouts.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },    
+    "mediaPosition": {
+      "type": "string"
+    },
+    "useInnerBlockWrapper": {
+      "type": "boolean",
+      "default": true
+    } 
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "inserter": false,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },  
+  "editorScript": [ "file:./index.js" ]
+}

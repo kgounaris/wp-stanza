@@ -1,0 +1,56 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/google-map",
+  "title": "Google map",
+  "category": "widgets",
+  "description": "Easily embed a customizable Google Map. Search for locations, drop markers, and build a visual map of your favorite spots.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "googleMapOptions": {
+      "type": "object",
+      "default": {
+        "zoom": 5
+      }
+    },
+    "markers": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": {
+        "type": "default",
+        "justifyContent": "center"
+      }
+    }
+  },
+  "editorScript": [
+    "google-maps-api",
+    "stanza-config",
+    "file:./index.js"
+  ],
+  "viewScript": [
+    "google-maps-api",
+    "file:./view.js"
+  ],
+  "editorStyle": [
+    "file:./index.css",
+    "stanza-google-map-index"
+  ],
+  "style": [
+    "file:./style-index.css",
+    "stanza-google-map-style"
+  ]
+}

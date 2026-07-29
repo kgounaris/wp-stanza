@@ -1,0 +1,20 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/media",
+  "title": "Media",
+  "category": "media",
+  "icon": "smiley",
+  "description": "Insert an image or a video to make a visual statement.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": ["full"]
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "style": [ "file:./style-index.css", "stanza-media-style-index" ],
+  "editorStyle": [ "file:./index.css", "stanza-media-index" ]
+}

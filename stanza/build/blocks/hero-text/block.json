@@ -1,0 +1,44 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/hero-text",
+  "title": "Hero text",
+  "category": "text",
+  "icon": "smiley",
+  "description": "Use expressive text to capture attention and set the tone.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "blocks": {
+      "type": "array",
+      "default": []
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "useInnerBlocksWrapper": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": {
+        "type": "default",
+        "justifyContent": "center"
+      }
+    }
+  },
+  "editorScript": [
+    "stanza-config",
+    "file:./index.js"
+  ]
+}

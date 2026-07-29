@@ -1,0 +1,36 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/navigation",
+  "title": "Navigation",
+  "category": "theme",
+  "icon": "navigation",
+  "description": "A collection of blocks that allow visitors to get around your site.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },    
+    "backgroundColor": {
+      "type": "string"
+    },
+    "menuId": {
+      "type": "number",
+      "default": 0
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "args": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ]
+}

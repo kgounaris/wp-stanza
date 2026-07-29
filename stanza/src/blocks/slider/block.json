@@ -1,0 +1,56 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/slider",
+  "title": "Slider",
+  "category": "media",
+  "icon": "slides",
+  "description": "Display multiple Media in a rich slider.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },    
+    "backgroundColor": {
+      "type": "string"
+    },
+    "iconSet": {
+      "type": "object",
+      "default": {
+        "prev":"<svg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 66 48'><path d='M14.1,27.8l20.3,20.2h-10.4L0,24,24,0h10.4S14.1,20.2,14.1,20.2h51.9v7.6H14.1Z'/></svg>",
+        "next":"<svg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 66 48'><path d='M51.9,20.2L31.6,0h10.4l24,24-24,24h-10.4s20.3-20.2,20.3-20.2H0v-7.6h51.9Z'/></svg>"
+      }
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "sliderOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "sliderSettings": {
+      "type": "object",
+      "default": {
+        "slidesPerView": "auto",
+        "centeredSlides": false,
+        "initialSlide": 0,
+        "spaceBetween": 0,
+        "slideClass": "wp-block-stanza-media",
+        "navigation": true
+      }
+    },
+    "template": {
+      "type": "array"
+    }
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },  
+  "editorScript": [ "file:./index.js" ],
+  "viewScript": [ "file:./view.js" ],
+  "editorStyle": [ "file:./index.css" ],
+  "style": [ "file:./style-index.css" ]
+}

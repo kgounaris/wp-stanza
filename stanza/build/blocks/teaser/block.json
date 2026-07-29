@@ -1,0 +1,61 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/teaser",
+  "title": "Teaser",
+  "category": "design",
+  "icon": "columns",
+  "description": "Organize teaser content into multiple columns. Use it to present previews of posts, pages, or custom content in a structured and responsive layout.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "mediaAspectRatio": {
+      "type": "string"
+    },
+    "mediaImageSize": {
+      "type": "string"
+    },
+    "mediaPosition": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "teaserOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "useBlockWrapper": {
+      "type": "boolean",
+      "default": true
+    },
+    "useInnerBlockWrapper": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": {
+        "type": "default",
+        "justifyContent": "center"
+      }
+    }
+  },
+  "editorScript": [
+    "stanza-config",
+    "file:./index.js"
+  ]
+}

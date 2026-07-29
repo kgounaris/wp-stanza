@@ -1,0 +1,54 @@
+@use '../../../variables';
+
+.wp-block-stanza-contact {
+	& > div {
+		display: grid;
+	}
+	
+	.wp-block-stanza-google-map {		
+	    aspect-ratio: 1/1;
+	}
+}
+
+@media (min-width: #{variables.$breakpoint-md}) {
+	.wp-block-stanza-contact.has-google-map-on-the-left,
+	.wp-block-stanza-contact.has-google-map-on-the-right {
+		& > div {
+		    grid-template-columns: 50% 1fr;
+		    grid-template-rows: auto;
+		}
+
+		& > div:first-child, // Inner blocks
+		.wp-block-stanza-google-map {
+		    grid-row: 1;
+		}
+	}
+
+	.wp-block-stanza-contact.has-google-map-on-the-right {
+		// Inner blocks
+		& > div:first-child {
+		    grid-column: 1;
+		}
+
+		.wp-block-stanza-google-map {
+			grid-column: 2;
+		}  
+	}
+	
+	.wp-block-stanza-contact.has-google-map-on-the-left {
+		// Inner blocks
+		& > div:first-child {
+		    grid-column: 2;
+		}
+
+		.wp-block-stanza-google-map {
+			grid-column: 1;
+		}  		
+	}
+	
+	.wp-block-stanza-contact.has-google-map-on-the-top {
+		.wp-block-stanza-google-map {
+			grid-row: 1;
+		}  		
+	}
+}

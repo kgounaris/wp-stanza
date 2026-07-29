@@ -1,0 +1,29 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/post",
+  "title": "Post",
+  "icon": "email",
+  "category": "layout",
+  "description": "Display a contact form alongside an interactive map, allowing visitors to easily get in touch and find your location.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    }, 
+    "template": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },  
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "style": [ "file:./style-index.css", "stanza-post-style" ]
+}

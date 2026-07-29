@@ -1,0 +1,11 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/post-navigation",
+  "title": "Post navigation",
+  "category": "widgets",
+  "description": "Navigate between posts",
+  "editorScript": [
+    "stanza-config",
+    "file:./index.js"
+  ]
+}

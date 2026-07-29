@@ -1,0 +1,38 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/media-text/style.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+.wp-block-stanza-media-text > div {
+  display: grid;
+}
+.wp-block-stanza-media-text .wp-block-stanza-media {
+  margin: 0;
+}
+
+@media (min-width: 992px) {
+  .wp-block-stanza-media-text.has-media-on-the-left > div,
+  .wp-block-stanza-media-text.has-media-on-the-right > div {
+    grid-template-columns: 50% 1fr;
+    grid-template-rows: auto;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-left > div:first-child,
+  .wp-block-stanza-media-text.has-media-on-the-left .wp-block-stanza-media,
+  .wp-block-stanza-media-text.has-media-on-the-right > div:first-child,
+  .wp-block-stanza-media-text.has-media-on-the-right .wp-block-stanza-media {
+    grid-row: 1;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-right > div:first-child {
+    grid-column: 1;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-right .wp-block-stanza-media {
+    grid-column: 2;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-left > div:first-child {
+    grid-column: 2;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-left .wp-block-stanza-media {
+    grid-column: 1;
+  }
+  .wp-block-stanza-media-text.has-media-on-the-top .wp-block-stanza-media {
+    grid-row: 1;
+  }
+}

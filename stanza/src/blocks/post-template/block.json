@@ -1,0 +1,76 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/post-template",
+  "title": "Post template",
+  "category": "design",
+  "icon": "layout",
+  "description": "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "allowedBlocks": {
+      "type": "array"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "htmlAttrs": {
+      "type": "object",
+      "default": {}
+    },
+    "template": {
+      "type": "array"      
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "postTemplateOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "template": {
+      "type": "array"      
+    },
+    "predefinedPosts": {
+      "type": "array"
+    },
+    "useThePost": {
+      "type": "boolean"
+    },
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "metaKey": {
+      "type": "string"
+    },
+    "metaValue": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": false,
+    "layout": false
+  },
+  "usesContext": [
+    "postId",
+    "stanza/archivePagination",
+    "stanza/archiveReadMoreContent",
+    "stanza/archiveDisplayAllPosts",
+    "stanza/archivePostType",
+    "stanza/archiveMetaKey",
+    "stanza/archiveMetaValue",
+    "stanza/archiveFilters",
+    "stanza/archiveOrderMode",
+    "stanza/archiveNumberOfPosts",
+    "stanza/archivePredefinedPosts",
+    "stanza/archiveSelectedPostIds"
+  ],    
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "editorStyle": [ "file:./index.css" ]
+}

@@ -1,0 +1,33 @@
+@use '../../../variables';
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100%;
+  background: repeating-linear-gradient(-45deg, var(--wp-admin-theme-color) 0 150px, #000000 0 200px) left/200% 100%;
+  //background: repeating-linear-gradient(-45deg,#000 0 15px,#0000 0 20px) left/200% 100%;
+  animation: l3 20s infinite linear;
+  color: white;
+}
+
+.noposts,
+.loader {
+  min-height: calc(min(600px, 33vw));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes l3 {
+    100% {
+      background-position:right
+    }
+}
+
+.wp-block-stanza-archive:has(.loader),
+.wp-block-stanza-archive:has(.noposts) {
+  display: block !important;
+
+  .wp-block-stanza-archive__inner {
+    display: block;
+  }
+}

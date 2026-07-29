@@ -1,0 +1,5 @@
+.wp-block-stanza-media:has(.components-placeholder) {
+	background: var(--wp-admin-theme-color);
+	padding: 20px;
+	box-sizing: border-box;
+}

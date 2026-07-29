@@ -1,0 +1,70 @@
+figure.wp-block-stanza-media {
+
+	& > a {
+		width: 100%;
+		height: 100%;
+	}
+
+	// To keep inline SVG centered	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	//.
+	flex-wrap: wrap;
+
+	img, video, svg {
+		vertical-align: top;
+	}
+
+	img, video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	svg {
+		max-height: 100%; // Important to keep figures aspect-ratio
+	}
+
+	figcaption {
+		flex-basis: 100%;
+	}
+
+	// TODO: auto create aspect ratios
+	&.has-4-1-aspect-ratio {
+		aspect-ratio: 4/1;
+	}
+
+	&.has-3-1-aspect-ratio {
+		aspect-ratio: 3/1;
+	}
+
+	&.has-2-1-aspect-ratio {
+		aspect-ratio: 2/1;
+	}
+
+	&.has-16-9-aspect-ratio {
+		aspect-ratio: 16/9;
+	}
+
+	&.has-3-2-aspect-ratio {
+		aspect-ratio: 3/2;
+	}
+
+	&.has-4-3-aspect-ratio {
+		aspect-ratio: 4/3;
+	}
+
+	&.has-1-1-aspect-ratio {
+		aspect-ratio: 1/1;
+	}
+
+	&.has-2-3-aspect-ratio {
+		aspect-ratio: 2/3;
+	}
+
+	&.has-3-4-aspect-ratio {
+		aspect-ratio: 3/4;
+	}
+
+}

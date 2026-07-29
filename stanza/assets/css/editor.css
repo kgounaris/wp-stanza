@@ -1,0 +1,5 @@
+
+
+.block-editor-block-toolbar [aria-label="Align text"] {
+  display: none !important;
+}

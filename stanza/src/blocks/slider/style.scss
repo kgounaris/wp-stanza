@@ -1,0 +1,8 @@
+@use 'swiper/css';
+@use 'swiper/css/navigation';
+@use 'swiper/css/pagination';
+
+.swiper-wrapper > [class*=wp-block],
+.swiper-wrapper > .post {
+	@extend .swiper-slide;
+}

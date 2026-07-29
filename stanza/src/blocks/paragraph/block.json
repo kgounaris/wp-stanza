@@ -1,0 +1,23 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/paragraph",
+  "title": "Featured paragraph",
+  "description": "A paragraph used in templates.",
+  "category": "text",
+  "icon": "editor-paragraph",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "source": "html",
+      "selector": "p"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "Featured paragraph"
+    }
+  },
+  "supports": {
+    "splitting": true    
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ]
+}

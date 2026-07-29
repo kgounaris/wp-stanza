@@ -1,0 +1,39 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/header",
+  "title": "Header",
+  "category": "design",
+  "icon": "heading",
+  "description": "Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.",
+  "attributes": {
+    "level": {
+      "type": "number",
+      "default": 2
+    },
+    "subtitlePosition": {
+      "type": "string",
+      "default": "top"
+    },
+    "subtitleBlock": {
+      "type": "array"
+    },
+    "tag": {
+      "type": "string",
+      "default": "div"
+    },
+    "tagProps": {
+      "type": "object",
+      "default": {
+        "className": "wp-block-stanza-header"
+      }
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "inserter": false
+  },
+  "editorScript": [
+    "stanza-config",
+    "file:./index.js"
+  ]
+}

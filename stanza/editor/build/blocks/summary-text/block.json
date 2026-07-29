@@ -1,0 +1,36 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/summary-text",
+  "title": "Summary text",
+  "category": "text",
+  "description": "Write clear summary using up to two paragraphs.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "maxParagraphs": {
+      "type": "number",
+      "default": 3
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "summaryTextOptions": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "inserter": true,
+    "__experimentalHasCustomAppender": true
+  },
+  "editorScript": "file:./index.js"
+}

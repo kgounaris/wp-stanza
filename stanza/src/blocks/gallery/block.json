@@ -1,0 +1,49 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/gallery",
+  "title": "Gallery",
+  "category": "media",
+  "description": "Display multiple images in a rich gallery.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    }, 
+    "backgroundColor": {
+      "type": "string"
+    },
+    "columns": {
+        "type": "number",
+        "default": 3
+    },
+    "galleryMediaAspectRatio": {
+      "type": "string"
+    },  
+    "galleryMediaImageSize": {
+      "type": "string"
+    },
+    "galleryOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "useInnerBlocksWrapper": {
+      "type": "boolean"
+    },
+    "useBlockWrapper": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "style": [ "file:./style-index.css", "stanza-media-text-style" ]
+}

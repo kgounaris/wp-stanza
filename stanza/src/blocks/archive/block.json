@@ -1,0 +1,101 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/archive",
+  "title": "Archive",
+  "category": "widgets",
+  "icon": "archive",
+  "description": "An advanced block that allows displaying post types based on different query parameters and visual configurations.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "archiveOptions": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "blocks": {
+      "type": "object",
+      "default": {}
+    },
+    "displayAllPosts": {
+      "type": "boolean",
+      "default": false
+    },
+    "filters": {
+      "type": "object",
+      "default": {}
+    },
+    "numberOfPosts": {
+      "type": "number"
+    },
+    "orderMode": {
+      "type": "string",
+      "default": "default"
+    },
+    "pagination": {
+      "type": "boolean"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "predefinedPosts": {
+      "type": "array"
+    },
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "metaKey": {
+      "type": "string"
+    },
+    "metaValue": {
+      "type": "string"
+    },
+    "readMoreContent": {
+      "type": "string"
+    },
+    "selectedPostIds": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "number"
+      }
+    },
+    "template": {
+      "type": "array"      
+    },
+    "useBlockWrapper": {
+      "type": "boolean",
+      "default": true
+    },
+    "useInnerBlocksWrapper": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": { "type": "default", "justifyContent": "center" }
+    }
+  },
+  "providesContext": {
+    "stanza/archivePagination": "pagination",
+    "stanza/archiveDisplayAllPosts": "displayAllPosts",
+    "stanza/archiveReadMoreContent": "readMoreContent",
+    "stanza/archivePostType": "postType",
+    "stanza/archiveMetaKey": "metaKey",
+    "stanza/archiveMetaValue": "metaValue",
+    "stanza/archiveFilters": "filters",
+    "stanza/archiveOrderMode": "orderMode",
+    "stanza/archiveNumberOfPosts": "numberOfPosts",
+    "stanza/archivePredefinedPosts": "predefinedPosts",
+    "stanza/archiveSelectedPostIds": "selectedPostIds"
+  },  
+  "editorScript": [ "stanza-config", "file:./index.js" ],
+  "style": [ "file:./style-index.css", "stanza-archive-style-index" ]
+}

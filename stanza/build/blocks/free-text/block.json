@@ -1,0 +1,43 @@
+{
+  "apiVersion": 3,
+  "name": "stanza/free-text",
+  "title": "Free text",
+  "category": "text",
+  "description": "Add and format text freely within your layout.",
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "allowedBlocks": {
+      "type": "array"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "template": {
+      "type": "array"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "freeTextOptions": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "align": true,
+    "layout": {
+      "allowCustomContentAndWideSize": false,
+      "default": {
+        "type": "default",
+        "justifyContent": "center"
+      }
+    }
+  },
+  "editorScript": [
+    "stanza-config",
+    "file:./index.js"
+  ]
+}
