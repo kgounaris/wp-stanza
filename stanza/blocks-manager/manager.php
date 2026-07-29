@@ -69,7 +69,7 @@ class Stanza_Manager {
 	}
 
 	private $theme_json;  
-	private $attributes_renfer;  
+	private $attributes_render;  
 
 	/**
 	 * Constructor
@@ -326,8 +326,8 @@ class Stanza_Manager {
 		}
 
 		$enabled_list = array();
-		if ( isset( $current_config['settings']['blocks'] ) ) {
-			$enabled_list = array_keys( $current_config['settings']['blocks'][0] );
+		if ( is_array( $current_config['settings']['blocks'] ?? null ) ) {
+			$enabled_list = array_keys( $current_config['settings']['blocks'] );
 		}
 		?>
 

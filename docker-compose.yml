@@ -36,6 +36,12 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DEBUG: 1
+      # Log notices instead of printing them — printed notices break
+      # header-dependent flows (login redirects, cookies). Read them with:
+      #   docker compose exec wordpress tail -f /var/www/html/wp-content/debug.log
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_DEBUG_LOG', true );
+        define( 'WP_DEBUG_DISPLAY', false );
     volumes:
       - wp_core:/var/www/html
       - ./stanza:/var/www/html/wp-content/plugins/stanza
@@ -64,6 +70,7 @@ services:
       - ./stanza:/var/www/html/wp-content/plugins/stanza
       - ./stanza-starter:/var/www/html/wp-content/themes/stanza-starter
       - ./docker/setup.sh:/setup.sh:ro
+      - ./docker/smoke.sh:/smoke.sh:ro
     profiles: ["cli"]
 
 volumes:
