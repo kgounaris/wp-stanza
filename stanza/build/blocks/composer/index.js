@@ -257,16 +257,16 @@ function Edit({
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     className: ['wp-block', mediaPosition ? `has-media-on-the-${mediaPosition}` : '', backgroundColor ? `has-${backgroundColor}-background-color has-background-color` : ''].filter(Boolean).join(' ')
   });
-  const archiveBlock = template.find(([blockName]) => blockName === 'stanza/archive');
+  const archiveBlock = (template ?? []).find(([blockName]) => blockName === 'stanza/archive');
   const innerBlocksProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useInnerBlocksProps)(blockProps, {
     template: template,
-    templateLock: 'all',
-    allowedBlocks: []
+    templateLock: window.Stanza?.blocks?.[blockName || 'stanza/composer']?.templateLock ?? false,
+    allowedBlocks: window.Stanza?.blocks?.[blockName || 'stanza/composer']?.allowedBlocks ?? undefined
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
-    children: [window?.Stanza?.blocks[blockName || 'stanza/composer']?.attributes?.mediaPosition?.options.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.BlockControls, {
+    children: [window?.Stanza?.blocks[blockName || 'stanza/composer']?.attributes?.mediaPosition?.options?.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.BlockControls, {
       group: "other",
-      children: window.Stanza.blocks[blockName || 'stanza/composer'].attributes.mediaPosition.options?.map((position, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToolbarButton, {
+      children: window.Stanza?.blocks?.[blockName || 'stanza/composer']?.attributes?.mediaPosition?.options?.map((position, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToolbarButton, {
         icon: 'top' == position || 'bottom' == position ? IconSet[`alignPull${position.charAt(0).toUpperCase() + position.slice(1)}`] : `align-pull-${position}`,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)(`Show media on ${position}`, 'Stanza'),
         isActive: mediaPosition === position,

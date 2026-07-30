@@ -57,6 +57,7 @@ register_block_type(
 
 			$classes = implode( ' ', array_filter( array(
 				'wp-block-stanza-media',
+				(string) ( $attributes['className'] ?? '' ),
 				'size-' . sanitize_html_class( $image_size ),
 				$aspect_ratio ? 'has-' . sanitize_html_class( str_replace( '/', '-', $aspect_ratio ) ) . '-aspect-ratio' : '',
 				$orientation ? 'has-' . $orientation . '-orientation' : '',

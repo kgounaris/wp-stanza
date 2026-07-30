@@ -21,14 +21,14 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		].filter(Boolean).join(' ')
 	});
 
-	const archiveBlock = template.find(
+	const archiveBlock = (template ?? []).find(
 		( [ blockName ] ) => blockName === 'stanza/archive'
 	);
 	
 	const innerBlocksProps = useInnerBlocksProps(blockProps,{
 		template: template,
-		templateLock: 'all',    
-	    allowedBlocks: []
+		templateLock: window.Stanza?.blocks?.[blockName || 'stanza/composer']?.templateLock ?? false,    
+	    allowedBlocks: window.Stanza?.blocks?.[blockName || 'stanza/composer']?.allowedBlocks ?? undefined
 	});
 	
     return (
@@ -36,7 +36,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     		{ window?.Stanza?.blocks[blockName || 'stanza/composer']?.attributes?.mediaPosition?.options.length &&
     		(
     		<BlockControls group="other">
-				{ window.Stanza.blocks[blockName || 'stanza/composer'].attributes.mediaPosition.options?.map((position, index) => (
+				{ window.Stanza?.blocks?.[blockName || 'stanza/composer']?.attributes?.mediaPosition?.options?.map((position, index) => (
 					<ToolbarButton
 						key={ index }
 	                    icon={ 'top' == position || 'bottom' == position ? IconSet[`alignPull${position.charAt(0).toUpperCase() + position.slice(1)}`] : `align-pull-${position}` }
