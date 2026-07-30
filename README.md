@@ -36,9 +36,43 @@ docker compose run --rm cli /setup.sh
 # -> http://localhost:8081 (admin / admin)
 ```
 
-WordPress + MariaDB, with the plugin and theme bind-mounted — code edits show
-on refresh. The setup script installs core, activates both, and creates a
-front page. Re-run it any time; it's idempotent.
+WordPress (php8.3-apache) + MySQL 8 — matching the production database
+engine. Plugin and starter theme are bind-mounted, so code edits show on
+refresh. The setup script installs core, activates both, sets permalinks and
+a front page; it's idempotent, re-run it any time.
+
+**Verify the environment** after changes:
+
+```bash
+docker compose run --rm cli /smoke.sh
+```
+
+(checks install, active plugin/theme, registered blocks, front page render,
+wp-admin redirect, no PHP fatals, no notices leaking into HTML).
+
+**Per-project themes** mount via a gitignored `docker-compose.override.yml` —
+client themes live in their own repos, never in this one:
+
+```yaml
+services:
+  wordpress:
+    volumes:
+      - ../my-client/wp-theme/my-client:/var/www/html/wp-content/themes/my-client
+  cli:
+    volumes:
+      - ../my-client/wp-theme/my-client:/var/www/html/wp-content/themes/my-client
+```
+
+**Good to know:**
+- PHP upload limits are raised to 128M via `docker/uploads.ini` (the stock
+  image's 2M rejects plugin zips and media — wp-admin misreports it as
+  "The link you followed has expired").
+- `WP_DEBUG` logs to `wp-content/debug.log` instead of printing (printed
+  notices corrupt HTTP headers and break wp-admin). Tail it with
+  `docker compose exec wordpress tail -f wp-content/debug.log`.
+- Database engine parity: the `mysql:8` tag tracks 8.4 LTS — pin `mysql:8.0`
+  in the compose file if your production server runs 8.0.x.
+- WP-CLI for anything else: `docker compose run --rm cli wp <command>`.
 
 ## Deploy
 
