@@ -46,6 +46,7 @@ services:
       - wp_core:/var/www/html
       - ./stanza:/var/www/html/wp-content/plugins/stanza
       - ./stanza-starter:/var/www/html/wp-content/themes/stanza-starter
+      - ./docker/uploads.ini:/usr/local/etc/php/conf.d/zz-uploads.ini:ro
     restart: unless-stopped
 
   # WP-CLI sidecar — same mounts, same DB. Used for setup and maintenance.
