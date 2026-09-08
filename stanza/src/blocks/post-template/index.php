@@ -13,9 +13,11 @@ register_block_type(
 	)
 );
 
-/** Wrapper tags a template item may use — anything else falls back to article. */
+/** Wrapper tags a template item may use — anything else falls back to article.
+ *  'a' makes the whole item a link to the post (the inner post-title should
+ *  then have isLink off); block-level content inside <a> is valid HTML5. */
 function stanza_post_template_tag( string $tag ): string {
-	return in_array( $tag, array( 'article', 'div', 'li', 'section' ), true ) ? $tag : 'article';
+	return in_array( $tag, array( 'article', 'div', 'li', 'section', 'a' ), true ) ? $tag : 'article';
 }
 
 function stanza_render_post_template_block( $attributes, $content, $block ) {
@@ -167,7 +169,8 @@ function stanza_render_post_template_block( $attributes, $content, $block ) {
 					break;
 			}
 
-			echo '<' . $tag . $html_id . ' class="wp-block-stanza-post is-layout-flow ' . esc_attr( implode( ' ', $classes ) ) . '">';
+			$html_href = 'a' === $tag ? ' href="' . esc_url( get_permalink( $post_id ) ) . '"' : '';
+			echo '<' . $tag . $html_id . $html_href . ' class="wp-block-stanza-post is-layout-flow ' . esc_attr( implode( ' ', $classes ) ) . '">';
 
 			// Early priority so other render_block_context filters see the values.
 			add_filter( 'render_block_context', $filter_block_context, 1 );
@@ -192,9 +195,10 @@ function stanza_render_post_template_block( $attributes, $content, $block ) {
 			}
 		}
 	} else {
-		echo '<' . $tag . ' class="wp-block-stanza-post is-layout-flow">';
+		$empty_tag = 'a' === $tag ? 'div' : $tag;   // a link with nowhere to go makes no sense
+		echo '<' . $empty_tag . ' class="wp-block-stanza-post is-layout-flow">';
 		echo '<p>' . esc_html__( 'No results found', 'stanza' ) . '</p>';
-		echo '</' . $tag . '>';
+		echo '</' . $empty_tag . '>';
 	}
 
 	wp_reset_postdata();

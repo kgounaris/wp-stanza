@@ -40,7 +40,7 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
 			: ( context?.[ 'stanza/archivePredefinedPosts' ] ?? ( attributes?.predefinedPosts ?? [] ) );
 	const selectedPostIds = context?.[ 'stanza/archiveSelectedPostIds' ] ?? [];
 
-	const TagName = tag || 'article';
+	const TagName = tag === 'a' ? 'div' : ( tag || 'article' ); // an <a> wrapper would swallow editor clicks; the front end renders the link
 
 	// Keep attribute template for compatibility / inspector UI
 	useEffect(() => {
