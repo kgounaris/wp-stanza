@@ -99,6 +99,9 @@ function stanza_render_post_template_block( $attributes, $content, $block ) {
 			$query_args['orderby'] = 'title';
 			$query_args['order']   = 'DESC';
 			break;
+		case 'menu':   // manual order: menu_order (page-attributes / a drag-and-drop ordering plugin), then title
+			$query_args['orderby'] = array( 'menu_order' => 'ASC', 'title' => 'ASC' );
+			break;
 		default:
 			break;
 	}

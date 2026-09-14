@@ -45,7 +45,8 @@ const ORDER_OPTIONS = [
 	{ label: 'Newest first', value: 'newest' },
 	{ label: 'Oldest first', value: 'oldest' },
 	{ label: 'A → Z (title)', value: 'az' },
-	{ label: 'Z → A (title)', value: 'za' }
+	{ label: 'Z → A (title)', value: 'za' },
+	{ label: 'Manual order (menu order)', value: 'menu' }
 ];
 
 const ITEM_TEMPLATE = [

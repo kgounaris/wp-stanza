@@ -44,6 +44,10 @@ export const fetchPosts = (postType, metaKey, metaValue, orderMode, filters, num
 					query.order = 'desc';
 					query.orderby = 'title';
 					break;
+				case 'menu':   // manual order (menu_order); the post type must support page-attributes for the REST orderby
+					query.order = 'asc';
+					query.orderby = 'menu_order';
+					break;
 				default:
 					// leave default REST order
 					break;
