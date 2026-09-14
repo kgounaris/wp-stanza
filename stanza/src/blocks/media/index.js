@@ -1,5 +1,8 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
-import metadata from './block.json';
+import blockMetadata from './block.json';
+// A local copy: the helpers below reassign it, and an ES import binding is read-only
+// (a production build turns it into a const and throws at load time).
+let metadata = { ...blockMetadata };
 import edit from './edit';
 import save from './save';
 
