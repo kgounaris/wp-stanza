@@ -35,11 +35,16 @@ export const setAlignLayoutBackground = (block, clientId, setAttributes, backgro
 			return;
 		}*/
 
-		if ( rootClientId ) {
+		// Nested blocks lose their background — unless the theme opts the block in
+		// (stanza.json: blocks.<name>.attributes.backgroundColor.nested = true), e.g.
+		// coloured cards inside a section.
+		const keepsNestedBackground = !! window?.Stanza?.blocks?.[block]?.attributes?.backgroundColor?.nested;
+
+		if ( rootClientId && ! keepsNestedBackground ) {
 			setAttributes({ backgroundColor: undefined });
 		}
 
-		if ( ! backgroundColor && ! rootClientId && window?.Stanza?.blocks[block]?.attributes?.backgroundColor?.default ) {
+		if ( ! backgroundColor && ( ! rootClientId || keepsNestedBackground ) && window?.Stanza?.blocks[block]?.attributes?.backgroundColor?.default ) {
 			setAttributes({ backgroundColor: window?.Stanza?.blocks[block]?.attributes?.backgroundColor?.default })
 		}		
 	}, [rootClientId]);
