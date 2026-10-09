@@ -2,6 +2,23 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * The media query that selects the mobile video clip (stanza.json:
+ * settings.media-mobile-query). Default: narrow OR portrait viewports, the
+ * width taken from the theme's "md" breakpoint.
+ */
+function stanza_media_mobile_query(): string {
+	$query = stanza_setting( 'media-mobile-query' );
+
+	if ( is_string( $query ) && '' !== trim( $query ) ) {
+		return trim( $query );
+	}
+
+	$md = stanza_config()->settings->breakpoints->md ?? '768px';
+
+	return '(max-width: ' . $md . '), (orientation: portrait)';
+}
+
+/**
  * stanza/media — static save output by default; server-rendered when the
  * media comes from post data (featured image or a meta key) so it works
  * inside query loops.
@@ -15,6 +32,17 @@ register_block_type(
 				|| ( $attributes['mediaIdMetaKey'] ?? false );
 
 			if ( ! $is_dynamic ) {
+				// Desktop + mobile video: stamp the media query the view script
+				// (view.js) switches on, so it follows stanza.json rather than
+				// the markup saved at edit time.
+				if ( ! empty( $attributes['mediaMobileUrl'] ) && str_contains( (string) $content, 'data-mobile-src' ) ) {
+					$tags = new WP_HTML_Tag_Processor( $content );
+					if ( $tags->next_tag( array( 'tag_name' => 'video' ) ) ) {
+						$tags->set_attribute( 'data-mobile-media', stanza_media_mobile_query() );
+						$content = $tags->get_updated_html();
+					}
+				}
+
 				return $content; // static save output is fine
 			}
 

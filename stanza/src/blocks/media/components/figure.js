@@ -5,7 +5,7 @@ import { wpData } from '../../wp-data';
 import { mediaItemPositionStyle } from '../helpers';
 
 export default function StanzaFigureContent (props) {
-	const { mediaAlt, mediaAspectRatio, mediaId, mediaOrientation, mediaOriginalAspectRatioFactor, mediaObjectPositionStyle, mediaType, mediaUrl, mediaVideoSettings } = props;
+	const { mediaAlt, mediaAspectRatio, mediaId, mediaOrientation, mediaOriginalAspectRatioFactor, mediaObjectPositionStyle, mediaType, mediaUrl, mediaVideoSettings, mediaMobileUrl, mediaMobilePoster, isSave = false } = props;
 
 	switch (mediaType) {
 		case 'image': {
@@ -30,6 +30,29 @@ export default function StanzaFigureContent (props) {
 			}
 		}
 		case 'video': {
+			// Desktop + mobile clip (front end only): no <source>, both URLs in
+			// data attributes, and view.js assigns the one that matches the
+			// viewport — so only one file is ever requested. The editor canvas
+			// keeps previewing the desktop clip. Blocks without a mobile clip
+			// keep the markup below, byte for byte, so they stay valid.
+			if ( isSave && mediaUrl && mediaMobileUrl ) {
+				return(
+	                <video
+	                	style={ mediaAspectRatio ? { ...( mediaItemPositionStyle(mediaObjectPositionStyle, mediaOrientation, mediaAspectRatio, mediaOriginalAspectRatioFactor) ) } : null }
+	                	controls={ mediaVideoSettings?.controls }
+	                    autoPlay={ mediaVideoSettings?.autoplay }
+	                    loop={ mediaVideoSettings?.loop }
+	                    muted={ mediaVideoSettings?.muted }
+	                    playsInline={ mediaVideoSettings?.playsInline }
+	                    preload={ mediaVideoSettings?.preload }
+	                    poster={ mediaVideoSettings?.poster?.url }
+	                    data-src={ mediaUrl }
+	                    data-mobile-src={ mediaMobileUrl }
+	                    data-mobile-poster={ mediaMobilePoster?.url || undefined }
+	                ></video>
+				);
+			}
+
 			return(
                 <video
                 	style={ mediaAspectRatio ? { ...( mediaItemPositionStyle(mediaObjectPositionStyle, mediaOrientation, mediaAspectRatio, mediaOriginalAspectRatioFactor) ) } : null }

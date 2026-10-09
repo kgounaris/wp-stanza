@@ -92,6 +92,15 @@ export const attributes = {
   "mediaThumbnail": {
       "type": "string"
   },
+  "mediaMobileId": {
+    "type": "number"
+  },
+  "mediaMobileUrl": {
+    "type": "string"
+  },
+  "mediaMobilePoster": {
+    "type": "object"
+  },
   "mediaVideoSettings": {
     "type": "object",
     "default": {

@@ -15,6 +15,7 @@
     "align": ["full"]
   },
   "editorScript": [ "stanza-config", "file:./index.js" ],
+  "viewScript": [ "file:./view.js" ],
   "style": [ "file:./style-index.css", "stanza-media-style-index" ],
   "editorStyle": [ "file:./index.css", "stanza-media-index" ]
 }

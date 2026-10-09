@@ -6,7 +6,7 @@ import { wpData } from '../../wp-data';
 import { StanzaAttrsPanelBody } from '../../components';
 import { MediaUpload } from '@wordpress/block-editor';
 
-import { onRemovePoster, onSelectPoster } from '../helpers';
+import { onRemovePoster, onSelectPoster, onSelectMobile, onRemoveMobile, onSelectMobilePoster, onRemoveMobilePoster } from '../helpers';
 import { PanelBody, ToggleControl, TextareaControl, SelectControl, RangeControl, ResponsiveWrapper, BaseControl, Button } from '@wordpress/components';
 import { MediaUploadCheck } from '@wordpress/editor';
 
@@ -16,7 +16,8 @@ export default function MediaInspectorControlsSettings({ attributes, setAttribut
 		mediaImageSize, mediaImageSizes, mediaIsSvg,
 		mediaInlineSvg, mediaOrientation, mediaOriginalAspectRatio,
 		mediaOriginalAspectRatioFactor, mediaType, mediaUrl,
-		mediaObjectPositionStyle, mediaOptions, mediaVideoSettings, mediaSvgWidth
+		mediaObjectPositionStyle, mediaOptions, mediaVideoSettings, mediaSvgWidth,
+		mediaMobileId, mediaMobileUrl, mediaMobilePoster
 	} = attributes;
 	const { settings } = wpData();
 	
@@ -276,6 +277,98 @@ export default function MediaInspectorControlsSettings({ attributes, setAttribut
 						</div>
 					) }
 		        </BaseControl>
+
+		        <BaseControl
+		        	label={ __( 'Mobile video', 'stanza' ) }
+		        	help={ __( 'Played instead of the video above on narrow or portrait screens (the breakpoint is set in stanza.json: settings.media-mobile-query). Only the matching file is downloaded.', 'stanza' ) }
+		        >
+		            <MediaUploadCheck>
+		                <MediaUpload
+		                    onSelect={ ( media ) => onSelectMobile(media, setAttributes) }
+		                    allowedTypes={ ['video'] }
+		                    value={ mediaMobileId }
+		                    render={ ({ open }) => (
+		                        <>
+		                            <Button
+		                                type="button"
+		                                className="components-button is-primary"
+		                                onClick={open}
+		                            >
+		                                { mediaMobileId ? __('Replace', 'stanza') : __('Select', 'stanza') }
+		                            </Button>
+		                            { mediaMobileId ? (
+		                                <Button
+		                                    type="button"
+		                                    className="components-button is-tertiary"
+		                                    onClick={ () => onRemoveMobile(setAttributes) }
+		                                >
+		                                    { __('Remove', 'stanza') }
+		                                </Button>
+		                            ) : ( <></> ) }
+		                        </>
+		                    )}
+		                />
+		            </MediaUploadCheck>
+
+					{ mediaMobileUrl && (
+						<div style={{ marginTop: 8, fontSize: 12, wordBreak: 'break-all' }}>
+							<video
+								src={ mediaMobileUrl }
+								muted
+								playsInline
+								preload="metadata"
+								poster={ mediaMobilePoster?.url || mediaVideoSettings?.poster?.url }
+								style={{ width: '100%', maxHeight: 200, background: '#000', display: 'block', marginBottom: 4 }}
+							/>
+							{ mediaMobileUrl.split('/').pop() }
+						</div>
+					) }
+		        </BaseControl>
+
+		        { mediaMobileId ? (
+		        <BaseControl
+		        	label={ __( 'Mobile poster image', 'stanza' ) }
+		        	help={ __( 'Optional. Shown with the mobile video; falls back to the poster image above.', 'stanza' ) }
+		        >
+		            <MediaUploadCheck>
+		                <MediaUpload
+		                    onSelect={ ( media ) => onSelectMobilePoster(media, setAttributes) }
+		                    allowedTypes={ ['image'] }
+		                    value={ mediaMobilePoster?.id }
+		                    render={ ({ open }) => (
+		                        <>
+		                            <Button
+		                                type="button"
+		                                className="components-button is-primary"
+		                                onClick={open}
+		                            >
+		                                { mediaMobilePoster?.id ? __('Replace', 'stanza') : __('Select', 'stanza') }
+		                            </Button>
+		                            { mediaMobilePoster?.id ? (
+		                                <Button
+		                                    type="button"
+		                                    className="components-button is-tertiary"
+		                                    onClick={ () => onRemoveMobilePoster(setAttributes) }
+		                                >
+		                                    { __('Remove', 'stanza') }
+		                                </Button>
+		                            ) : ( <></> ) }
+		                        </>
+		                    )}
+		                />
+		            </MediaUploadCheck>
+
+					{ mediaMobilePoster?.url && (
+						<div style={{ marginTop: 8 }}>
+							<img
+								src={ mediaMobilePoster.url }
+								alt={ __( 'Mobile poster preview', 'stanza' ) }
+								style={{ width: '100%', height: 'auto', display: 'block' }}
+							/>
+						</div>
+					) }
+		        </BaseControl>
+		        ) : ( <></> ) }
 		    </PanelBody>
 	    	) : ( <></> ) }
 		</>

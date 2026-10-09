@@ -24,7 +24,9 @@ export default function StanzaMediaSave( { blockProps, attributes = {} } ) {
 		mediaSvgHTML,
 		mediaType,
 		mediaUrl,
-		mediaVideoSettings
+		mediaVideoSettings,
+		mediaMobileUrl,
+		mediaMobilePoster
 	} = attributes;
 
 	// Update blockProps.ClassName
@@ -64,6 +66,9 @@ export default function StanzaMediaSave( { blockProps, attributes = {} } ) {
 					mediaType={ mediaType }
 					mediaUrl={ mediaUrl }
 					mediaVideoSettings={ mediaVideoSettings }
+					mediaMobileUrl={ mediaMobileUrl }
+					mediaMobilePoster={ mediaMobilePoster }
+					isSave
 				/>
 				{ mediaHasCaption && !!mediaCaption?.length && (
 			    <RichText.Content tagName="figcaption" className="wp-element-caption" value={ mediaCaption } />
@@ -91,6 +96,9 @@ export default function StanzaMediaSave( { blockProps, attributes = {} } ) {
 				mediaType={ mediaType }
 				mediaUrl={ mediaUrl }
 				mediaVideoSettings={ mediaVideoSettings }
+				mediaMobileUrl={ mediaMobileUrl }
+				mediaMobilePoster={ mediaMobilePoster }
+				isSave
 			/>
 			{ mediaHasCaption && !!mediaCaption?.length && (
 		    <RichText.Content tagName="figcaption" className="wp-element-caption" value={ mediaCaption } />

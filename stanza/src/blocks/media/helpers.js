@@ -4,6 +4,7 @@
  * On remove
  * On select poster
  * On remove poster
+ * On select / remove mobile video and its poster
  * Reset attributes and defaults that are not set on select/replace media
  * Object position style
  * List View item style
@@ -43,7 +44,9 @@ export const onSelect = (media, setAttributes, imageSize, mediaAspectRatio, idPr
         mediaOriginalAspectRatioFactor: media?.height && media?.width ? (media.width / media.height) : '',
         mediaThumbnail:
         	'image' == media.type ? ( (media?.sizes?.thumbnail?.url || media?.sizes?.thumbnail?.source_url) || '' ) : (
-        	'video' == media.type ? Stanza.bloginfo.STANZA_URL + '/assets/img/video.svg' : ''	)
+        	'video' == media.type ? Stanza.bloginfo.STANZA_URL + '/assets/img/video.svg' : ''	),
+        // The mobile clip only exists next to a desktop video.
+        ...( 'video' !== media.type ? clearedMobileVideo : {} )
     } );
 }
 
@@ -60,7 +63,8 @@ export const onSelectURL = (url, setAttributes) => {
         mediaOrientation: '',
         mediaFigureOrientation: '',
         mediaOriginalAspectRatioFactor: '',
-        mediaThumbnail: ''
+        mediaThumbnail: '',
+        ...clearedMobileVideo
 	} );
 };   
 
@@ -77,7 +81,8 @@ export const onRemove = (setAttributes) => {
         mediaOrientation: '',
         mediaFigureOrientation: '',
         mediaOriginalAspectRatioFactor: '',
-        mediaThumbnail: ''
+        mediaThumbnail: '',
+        ...clearedMobileVideo
 	} );
 };   
 
@@ -109,6 +114,53 @@ export const onRemovePoster = (videoSettings, setAttributes) => {
 	    	}    		
     	}
     });
+};
+
+/**
+ * Mobile video: an alternative clip for narrow or portrait viewports, picked
+ * by the block's view script (view.js). Attributes stay undefined when unused
+ * so blocks without one keep their exact saved markup.
+ */
+const clearedMobileVideo = {
+	mediaMobileId: undefined,
+	mediaMobileUrl: undefined,
+	mediaMobilePoster: undefined
+};
+
+/**
+ * On select mobile video
+ */
+export const onSelectMobile = (media, setAttributes) => {
+	setAttributes({
+		mediaMobileId: media.id,
+		mediaMobileUrl: media.url
+	});
+};
+
+/**
+ * On remove mobile video (its poster goes with it)
+ */
+export const onRemoveMobile = (setAttributes) => {
+	setAttributes({ ...clearedMobileVideo });
+};
+
+/**
+ * On select mobile poster
+ */
+export const onSelectMobilePoster = (media, setAttributes) => {
+	setAttributes({
+		mediaMobilePoster: {
+			id: media.id,
+			url: media.url
+		}
+	});
+};
+
+/**
+ * On remove mobile poster
+ */
+export const onRemoveMobilePoster = (setAttributes) => {
+	setAttributes({ mediaMobilePoster: undefined });
 };
 
 /**
