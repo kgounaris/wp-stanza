@@ -733,7 +733,7 @@ class Stanza_Manager {
 												$selected = selected( in_array( [
 												    "label" => $option[$key_pair[0]],
 												    "value" => $option[$key_pair[1]]
-												], $current_config['blocks'][$blockname]['attributes'][$attr_name]['options'] ), true );												
+												], $current_config_options ), true );												
 												break;
 										}
 
