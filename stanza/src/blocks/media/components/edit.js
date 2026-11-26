@@ -74,6 +74,15 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
 		].filter(Boolean).join(' ')
 	}
 
+	// The effects below derive attributes from the media, the post or the
+	// parent; none of them is an edit by the user. Written as non-persistent
+	// changes so that opening a post does not flag it as changed.
+	const { __unstableMarkNextChangeAsNotPersistent: notPersistent } = useDispatch( blockEditorStore );
+	const autoSet = ( attrs ) => {
+		notPersistent();
+		setAttributes( attrs );
+	};
+
 	// Featured video
 	const mediaFromMetaData = useSelect(
 		( select ) => {
@@ -98,7 +107,7 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
 
 	useEffect(() => {
 		if (mediaFromMetaData) {
-			setAttributes({
+			autoSet({
 				mediaId: mediaFromMetaData.mediaId,
 				mediaUrl: mediaFromMetaData.mediaUrl,
 				mediaOrientation: mediaFromMetaData.mediaOrientation
@@ -129,7 +138,7 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
 
 	useEffect(() => {
 		if (featuredImage) {
-			setAttributes({
+			autoSet({
 				mediaId: featuredImage.mediaId,
 				mediaUrl: featuredImage.mediaUrl
 			})
@@ -151,7 +160,7 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
 
 	useEffect(() => {
 		if (mediaIdPredefined && predefinedMedia && ! mediaUrl) {
-			setAttributes({ mediaUrl: predefinedMedia.mediaUrl })
+			autoSet({ mediaUrl: predefinedMedia.mediaUrl })
 		}
 	}, [predefinedMedia]);
 
@@ -174,13 +183,13 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
 
 	useEffect(() => {
 		if (mediaHrefIsPredefined && predefinedHref && ! mediaHref) {
-			setAttributes({ mediaHref: predefinedHref });		
+			autoSet({ mediaHref: predefinedHref });		
 		}
 	}, [predefinedHref]);
 
 	// Reset irrelevent attributes and defaults that are not set, on select/replace media
 	useEffect(() => {
-		resetAttrsAndDefaults(mediaId, mediaUrl, mediaIsSvg, setAttributes);
+		resetAttrsAndDefaults(mediaId, mediaUrl, mediaIsSvg, autoSet);
 	}, [mediaId]);
 
     // Current Media's generated sizes (slugs) by Wordpress core
@@ -200,42 +209,42 @@ export default function StanzaMediaEdit({ blockProps, attributes = {}, setAttrib
   	// Initialize aspect ratio
 	useEffect(() => {
 		if ( ! mediaAspectRatio && mediaOriginalAspectRatio ) {
-			setAttributes({mediaAspectRatio: mediaOriginalAspectRatio});
+			autoSet({mediaAspectRatio: mediaOriginalAspectRatio});
 		}
 		// Root block is Slider 
 		if ( 'stanza/slider' == rootBlockName ) {
-			setAttributes({mediaAspectRatio: Stanza?.blocks['stanza/slider']?.template?.default[0][1]?.mediaAspectRatio ?? mediaAspectRatio});
+			autoSet({mediaAspectRatio: Stanza?.blocks['stanza/slider']?.template?.default[0][1]?.mediaAspectRatio ?? mediaAspectRatio});
 	    }
 	}, [mediaId]);
 
   	// Initialize figure orientation
 	useEffect(() => {
-		setAttributes({mediaFigureOrientation: getOrientationByRatio(mediaAspectRatio)});		
+		autoSet({mediaFigureOrientation: getOrientationByRatio(mediaAspectRatio)});		
 	}, [mediaAspectRatio]);
 
   	// Avoid empty mediaAlt
 	useEffect(() => {
 		if ( (mediaId || mediaUrl) && ! mediaAlt ) {
-			setAttributes({mediaAlt: entityRecord?.title + (entityRecord?.description ? ' | ' + entityRecord.description : '')});
+			autoSet({mediaAlt: entityRecord?.title + (entityRecord?.description ? ' | ' + entityRecord.description : '')});
 		}
 	}, [mediaAlt]);
 
   	// Returns SVG HTML
 	useEffect(
-	  useFetchSvg(mediaUrl, mediaIsSvg, mediaSvgWidth, setAttributes, mediaSvgHTML, abortRef),
+	  useFetchSvg(mediaUrl, mediaIsSvg, mediaSvgWidth, autoSet, mediaSvgHTML, abortRef),
 	  [mediaUrl, mediaAlt, mediaId]
 	);
 	
   	// Updates SVG inline styles
 	useEffect(() => {
-		setAttributes({mediaSvgHTML: mediaSvgHTML?.replace('<svg', `<svg style="width:${mediaSvgWidth}%;height:auto;"`) || ''});
+		autoSet({mediaSvgHTML: mediaSvgHTML?.replace('<svg', `<svg style="width:${mediaSvgWidth}%;height:auto;"`) || ''});
 	}, [mediaSvgWidth]);
 
 	// Avoid "Unset" aspect ratio option for SVG
 	// Todo: SVGs have no width and height properties to add a default aspect ratio to figure.
 	useEffect(() => {
 		if ( mediaIsSvg && mediaInlineSvg && ! mediaAspectRatio ) {
-			setAttributes({ mediaAspectRatio: '3/2' })
+			autoSet({ mediaAspectRatio: '3/2' })
 		}
 	}, [mediaId, mediaAspectRatio, mediaInlineSvg]);
 

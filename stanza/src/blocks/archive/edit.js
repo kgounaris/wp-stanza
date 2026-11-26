@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -105,6 +105,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 	  	}
 	}, [selectedPostIds] )
 
+	// Defaults, not edits: must not flag the post as changed.
+	const { __unstableMarkNextChangeAsNotPersistent: notPersistent } = useDispatch( 'core/block-editor' );
+
 	// Set default number of posts
 	useEffect(() => {
 		if (selectedPostIds?.length) {
@@ -112,6 +115,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		} else if (predefinedPosts?.length) {
 	    	setAttributes( { numberOfPosts: predefinedPosts.length } );
 		} else if ( ! numberOfPosts ) {
+	    	notPersistent();
 	    	setAttributes( { numberOfPosts: entityRecord?.posts_per_page } );
 	  	}
 	}, [entityRecord, numberOfPosts, selectedPostIds, predefinedPosts] );
@@ -119,6 +123,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 	// Set default template
 	useEffect(() => {
 	  	if ( ! template?.length ) {
+	    	notPersistent();
 	    	setAttributes( { template: ITEM_TEMPLATE } );
 	  	}
 	}, [ template/*, setAttributes*/ ] );

@@ -43,8 +43,11 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
 	const TagName = tag === 'a' ? 'div' : ( tag || 'article' ); // an <a> wrapper would swallow editor clicks; the front end renders the link
 
 	// Keep attribute template for compatibility / inspector UI
+	// (a default, not an edit: must not flag the post as changed)
+	const { __unstableMarkNextChangeAsNotPersistent: notPersistent } = useDispatch( 'core/block-editor' );
 	useEffect(() => {
 		if ( ! template?.length ) {
+			notPersistent();
 			setAttributes( { template: ITEM_TEMPLATE } );
 		}
 	}, [ template ] );

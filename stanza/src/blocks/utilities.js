@@ -38,12 +38,21 @@ export function useFetchSvg(url, isSvg, svgWidth, setAttributes, mediaSvgHTML, a
 
 /**
  * Disable core's text blocks when certain block is out of focus
+ *
+ * A theme whose sections take headings, lists, tables and quotes directly
+ * (not only inside Free text) turns this off in stanza.json:
+ * settings.restrictCoreTextBlocks = false. Read on every run, so it does not
+ * depend on the load order of the config script.
  */
 // pass the block name you care about, e.g. 'stanza/free-text'
 export const monitorBlockFocus = (blockName) => {
 	const { subscribe, select } = wp.data;
 
 	subscribe(() => {
+		if ( false === window?.Stanza?.settings?.restrictCoreTextBlocks ) {
+			return;
+		}
+
 		const editor = select('core/block-editor');
 		const selectedId = editor.getSelectedBlockClientId();
 

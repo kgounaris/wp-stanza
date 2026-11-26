@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType, getBlockType } from '@wordpress/blocks';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
 /**
@@ -14,10 +14,16 @@ export const setAlignLayoutBackground = (block, clientId, setAttributes, backgro
         [ clientId ]
     );
 
+	// These effects normalise attributes on mount; they are not edits by the
+	// user. Marked non-persistent so that opening a post does not flag it as
+	// changed (Save enabled, "leave site?" prompt) before anything was touched.
+	const { __unstableMarkNextChangeAsNotPersistent: notPersistent } = useDispatch( blockEditorStore );
+
 	// Disable align and layout if has parent block
 	useEffect(() => {
 		if ( ! rootClientId) return;
 		
+		notPersistent();
 		setAttributes({
 			parentId: rootClientId,
 			layout: undefined,
@@ -40,11 +46,13 @@ export const setAlignLayoutBackground = (block, clientId, setAttributes, backgro
 		// coloured cards inside a section.
 		const keepsNestedBackground = !! window?.Stanza?.blocks?.[block]?.attributes?.backgroundColor?.nested;
 
-		if ( rootClientId && ! keepsNestedBackground ) {
+		if ( rootClientId && ! keepsNestedBackground && backgroundColor ) {
+			notPersistent();
 			setAttributes({ backgroundColor: undefined });
 		}
 
 		if ( ! backgroundColor && ( ! rootClientId || keepsNestedBackground ) && window?.Stanza?.blocks[block]?.attributes?.backgroundColor?.default ) {
+			notPersistent();
 			setAttributes({ backgroundColor: window?.Stanza?.blocks[block]?.attributes?.backgroundColor?.default })
 		}		
 	}, [rootClientId]);

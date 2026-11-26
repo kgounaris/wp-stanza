@@ -91,6 +91,11 @@ WordPress image (immutable deploys, only `uploads/` on a volume). See
 Per-site settings such as the Google Maps API key live in `stanza.json`
 (`settings["google-maps-api-key"]`) — never in code.
 
+`settings.restrictCoreTextBlocks` (default `true`): Heading, List, Table and
+Quote are greyed out in the inserter and the Transform menu unless the
+selection is inside a Free text block. A theme whose sections take those
+blocks directly sets it to `false`.
+
 ## Status
 
 Shared as-is: this is an internal framework made public. Issues and PRs are
